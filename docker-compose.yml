@@ -1,6 +1,7 @@
 services:
   frontend:
-    image: wee24/my-nginx-web:v2
+    image: wee24/234-deploylab-frontend:latest
+    pull_policy: always
     ports:
-      - "80:80"
+      - "8081:80"
     restart: unless-stopped
