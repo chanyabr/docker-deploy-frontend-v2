@@ -8,9 +8,7 @@ RUN npm ci
 COPY . .
 
 # Build with placeholder values
-RUN VITE_GRAPHQL_URI=_VITE_GRAPHQL_URI_PLACEHOLDER_ \
-    VITE_SERVER_URI=_VITE_SERVER_URI_PLACEHOLDER_ \
-    npm run build --mode production
+RUN npm run build
 
 
 # Production stage
