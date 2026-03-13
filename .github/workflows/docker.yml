@@ -53,5 +53,6 @@ jobs:
             cd /home/ubuntu/frontend
             echo ${{ secrets.DOCKER_HUB_TOKEN }} | docker login --username ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
             docker compose down
+            docker compose pull
             docker compose up -d
-            rm -rf /home/ubuntu/frontend/docker-compose.yml
+            
