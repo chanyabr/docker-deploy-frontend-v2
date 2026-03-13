@@ -2,7 +2,7 @@ FROM node:22-alpine AS build-stage
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+COPY package*.json ./
 RUN npm ci
 
 COPY . .
@@ -10,7 +10,7 @@ COPY . .
 # Build with placeholder values
 RUN VITE_GRAPHQL_URI=_VITE_GRAPHQL_URI_PLACEHOLDER_ \
     VITE_SERVER_URI=_VITE_SERVER_URI_PLACEHOLDER_ \
-    npm run build
+    npm run build -- --mode production
 
 
 # Production stage
