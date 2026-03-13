@@ -32,17 +32,18 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/234-deploylab-frontend:latest
 
-      - name: Copy file via ssh
+      - name: Copy docker-compose to server
         uses: appleboy/scp-action@v1
         with:
           host: ${{ secrets.HOST_SERVER }}
           username: ${{ secrets.HOST_USER_NAME }}
           key: ${{ secrets.HOST_SSH_PRIVATE_KEY }}
           port: 22
-          source: "docker-compose.yml"
-          target: "/home/ubuntu"
+          source: docker-compose.yml
+          target: /home/ubuntu/
+          overwrite: true
 
-      - name: Docker compose
+      - name: Run docker compose on server
         uses: appleboy/ssh-action@v1.2.4
         with:
           host: ${{ secrets.HOST_SERVER }}
@@ -50,8 +51,7 @@ jobs:
           key: ${{ secrets.HOST_SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            cd /home/ubuntu/frontend
+            cd /home/ubuntu
             echo ${{ secrets.DOCKER_HUB_TOKEN }} | docker login --username ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
             docker compose down
             docker compose up -d
-            
