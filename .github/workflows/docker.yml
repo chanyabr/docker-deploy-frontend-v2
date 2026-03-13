@@ -40,7 +40,7 @@ jobs:
           key: ${{ secrets.HOST_SSH_PRIVATE_KEY }}
           port: 22
           source: docker-compose.yml
-          target: /home/ubuntu/
+          target: /home/ubuntu/frontend
           overwrite: true
 
       - name: Run docker compose on server
@@ -51,7 +51,7 @@ jobs:
           key: ${{ secrets.HOST_SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            cd /home/ubuntu
+            cd /home/ubuntu/frontend
             echo ${{ secrets.DOCKER_HUB_TOKEN }} | docker login --username ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
             docker compose down
             docker compose up -d
